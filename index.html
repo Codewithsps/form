@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Codewithsps | Form</title>
+  <link href="./fav.png" rel="shortcut icon" />
+  <meta name="theme-color" content="#5d086e">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="form-container">
+   
+    <form name="submit-to-google-sheet" method="post">
+      <input name="Product Name" type="text" placeholder="Product Name *" required />
+      <input name="Brand Name" type="text" placeholder="Brand Name "  />
+      <input name="Product Price Range" type="text" placeholder=" Price Range " />
+      <input name="Product Size" type="text" placeholder="Product Size  "  />
+      <input name="Product Model Number" type="text" placeholder="Model Number" />
+      <input name="Product Country of Origin" type="text" placeholder="Country of Origin"  />
+      <input name="Product Information" type="text" placeholder="Product Additional Information" />
+   
+      <!-- <input name="Product Photos" type="file" id="file" accept=".png, .jpg, .jpeg,.doc,.pdf"
+        placeholder="File Upload *" multiple   /> -->
+      <button type="submit" value="Submit" name="Submit" value="submit">Send <i class="fa fa-send-o"></i></button>
+    </form>
+
+    <div class="loading js-loading is-hidden">
+      <div class="loading-spinner">
+        <svg>
+          <circle cx="25" cy="25" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+      </div>
+    </div>
+
+    <p class="js-success-message is-hidden" id="button_hover">Form Submitted Successfully <i class="fa fa-check"></i><span > <a href="./" >Home <i class="fa fa-home"></i></a></span></p>
+    <p class="js-error-message is-hidden">Error <span > <a href="index.html" style=" font-size: 20px; color: green;">Home</a></span></p>
+  </div>
+
+  <a href="https://docs.google.com/spreadsheets/d/1stPLGyY8KTpUsNiJrXnQE__twx9Ei2ScyGp-UZW9TAY/edit?usp=sharing" target="_blank">View Data</a>
+  <a href="#" target="_blank">Designed by CodeWithSPS</a>
+  <!-- https://script.google.com/macros/s/AKfycbxs4fw9Fmg0DnOTvPWdoHiXYTB3R0QG9Zb2yS15VTt6_i0F35dKeR2xK_95dBeT2p3ZOw/exec -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxs4fw9Fmg0DnOTvPWdoHiXYTB3R0QG9Zb2yS15VTt6_i0F35dKeR2xK_95dBeT2p3ZOw/exec';
+    const form = document.forms['submit-to-google-sheet'];
+    const loading = document.querySelector(".js-loading");
+    const successMessage = document.querySelector(".js-success-message");
+    const errorMessage = document.querySelector(".js-error-message");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      showLoadingIndicator();
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then((response) => showSuccessMessage(response))
+        .catch((error) => showErrorMessage(error));
+    });
+
+    function showLoadingIndicator() {
+      form.classList.add("is-hidden");
+      loading.classList.remove("is-hidden");
+    }
+
+    function showSuccessMessage(response) {
+      console.log("Success!", response);
+      setTimeout(() => {
+        successMessage.classList.remove("is-hidden");
+        loading.classList.add("is-hidden");
+      }, 500);
+    }
+
+    function showErrorMessage(error) {
+      console.error("Error!", error.message);
+      setTimeout(() => {
+        errorMessage.classList.remove("is-hidden");
+        loading.classList.add("is-hidden");
+      }, 500);
+    }
+   
+  
+
+  </script>
+</body>
+
+</html>
