@@ -64,16 +64,7 @@ body {
 .form-container {
   
   position: relative;
-  /* background: #ffffff; */
-  background: hsla(330, 36%, 53%, 1);
-
-  background: linear-gradient(90deg, hsla(330, 36%, 53%, 1) 0%, hsla(289, 68%, 19%, 1) 100%);
-  
-  background: -moz-linear-gradient(90deg, hsla(330, 36%, 53%, 1) 0%, hsla(289, 68%, 19%, 1) 100%);
-  
-  background: -webkit-linear-gradient(90deg, hsla(330, 36%, 53%, 1) 0%, hsla(289, 68%, 19%, 1) 100%);
-  
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#B15B86", endColorstr="#440F50", GradientType=1 );
+  background: #ffffff; 
   padding: 2rem;
   border-radius: 6px;
   display: flex;
