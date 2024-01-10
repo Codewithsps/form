@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Codewithsps | Form</title>
+  <link href="./fav.png" rel="shortcut icon" />
+  <meta name="theme-color" content="#077b10">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="form-container">
+   
+    <form name="submit-to-google-sheet" method="post">
+      <input name="Name" type="text" placeholder="Enter Name *" required />
+      <input name="Email" type="text" placeholder="Enter Email *" required />
+      <input name="Mobile Number" type="tel" placeholder="Enter Mobile *" required />
+      <input name="Message" type="text" placeholder="Message*  "  />
+      <button type="submit" value="Submit" name="Submit" value="submit">Send <i class="fa fa-send-o"></i></button>
+    </form>
+
+    <div class="loading js-loading is-hidden">
+      <div class="loading-spinner">
+        <svg>
+          <circle cx="25" cy="25" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+      </div>
+    </div>
+
+    <p class="js-success-message is-hidden" id="button_hover"><span  id="Success-form">Form Submitted Successfully</span> <i class="fa fa-check"></i><span > <a href="./">Home <i class="fa fa-home"></i></a></span></p>
+    <p class="js-error-message is-hidden">Error <span > <a href="index.html" style=" font-size: 20px; color: green;">Home</a></span></p>
+  </div>
+
+  <a href="https://docs.google.com/spreadsheets/d/1stPLGyY8KTpUsNiJrXnQE__twx9Ei2ScyGp-UZW9TAY/edit#gid=0" target="_blank" >View Data <i class=" fa fa-light fa-database"></i> </a>
+  <!-- <a href="#" target="_blank">Designed by SP Singh</a> -->
+  <!-- https://script.google.com/macros/s/AKfycbw4m-KDWe_-WwKnfwFrQa0aerV0XwY8P_YfB0RO68_yAfNvGZTIwpmM7eGhDVvRcwBuKQ/exec -->
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbw4m-KDWe_-WwKnfwFrQa0aerV0XwY8P_YfB0RO68_yAfNvGZTIwpmM7eGhDVvRcwBuKQ/exec ";
+    const form = document.forms['submit-to-google-sheet'];
+    const loading = document.querySelector(".js-loading");
+    const successMessage = document.querySelector(".js-success-message");
+    const errorMessage = document.querySelector(".js-error-message");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      showLoadingIndicator();
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then((response) => showSuccessMessage(response))
+        .catch((error) => showErrorMessage(error));
+    });
+
+    function showLoadingIndicator() {
+      form.classList.add("is-hidden");
+      loading.classList.remove("is-hidden");
+    }
+
+    function showSuccessMessage(response) {
+      console.log("Success!", response);
+      setTimeout(() => {
+        successMessage.classList.remove("is-hidden");
+        loading.classList.add("is-hidden");
+      }, 500);
+    }
+
+    function showErrorMessage(error) {
+      console.error("Error!", error.message);
+      setTimeout(() => {
+        errorMessage.classList.remove("is-hidden");
+        loading.classList.add("is-hidden");
+      }, 500);
+    }
+   
+  
+
+  </script>
+</body>
+
+</html>
